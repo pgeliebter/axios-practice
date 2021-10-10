@@ -1,0 +1,23 @@
+{
+  "name": "axios-practice",
+  "version": "1.0.0",
+  "main": "axios.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel axios.html",
+    "build": "parcel build axios.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.22.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
+  "keywords": [],
+  "description": "",
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
