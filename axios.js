@@ -1,44 +1,60 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 
-const BASE_URL = "https://jsonplaceholder.typicode.com";
+const BASE_URL = "https://api.github.com";
+let frameworksParams = [
+  "vuejs/vue",
+  "angular/angular.js",
+  "emberjs/ember",
+  "sveltejs/svelte",
+  "facebook/react",
+];
 
-const getTodoItems = async () => {
+let frameworkData = [];
+
+const getFrameworkData = async (framework) => {
   try {
-    const response = await axios.get(`${BASE_URL}/todos?_limit=5`);
-
-    const todoItems = response.data;
-
-    console.log(`GET: Here's the list of todos`, todoItems);
-
-    return todoItems;
+    const response = await axios.get(`${BASE_URL}/repos/${framework}`);
+    return response.data;
   } catch (errors) {
     console.error(errors);
   }
 };
 
-const createTodoElement = (item) => {
-  const todoElement = document.createElement("li");
+const createElement = (item) => {
+  const frameworkElement = document.createElement("li");
 
-  todoElement.appendChild(document.createTextNode(item.title));
+  frameworkElement.appendChild(document.createTextNode(item.name));
 
-  return todoElement;
+  return frameworkElement;
 };
 
-const updateTodoList = (todoItems) => {
-  const todoList = document.querySelector("ul");
-
-  if (Array.isArray(todoItems) && todoItems.length > 0) {
-    todoItems.map((todoItem) => {
-      todoList.appendChild(createTodoElement(todoItem));
+const updateFrameworkElements = (frameworkItems) => {
+  const frameworkList = document.querySelector("ul");
+  if (Array.isArray(frameworkItems) && frameworkItems.length > 0) {
+    frameworkItems.map((element) => {
+      frameworkList.appendChild(createElement(element));
     });
-  } else if (todoItems) {
-    todoList.appendChild(createTodoElement(todoItems));
+  } else if (frameworkItems) {
+    frameworkList.appendChild(createElement(frameworkItems));
   }
 };
 
-const main = async () => {
-  updateTodoList(await getTodoItems());
+const boo = () => {
+  Promise.all([
+    getFrameworkData(frameworksParams[0]),
+    getFrameworkData(frameworksParams[1]),
+    getFrameworkData(frameworksParams[2]),
+    getFrameworkData(frameworksParams[3]),
+    getFrameworkData(frameworksParams[4]),
+  ]).then((responses) => {
+    console.log(responses);
+    updateFrameworkElements(responses);
+  });
+};
+
+const main = () => {
+  updateFrameworkElements(boo());
 };
 
 main();
