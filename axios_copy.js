@@ -15,8 +15,7 @@ let frameworkData = [];
 const getFrameworkData = async (framework) => {
   try {
     const response = await axios.get(`${BASE_URL}/repos/${framework}`);
-
-    frameworkData.push(response.data);
+    return response.data;
   } catch (errors) {
     console.error(errors);
   }
@@ -42,13 +41,20 @@ const updateFrameworkElements = (frameworkItems) => {
 };
 
 const boo = () => {
-  frameworksParams.forEach((framework) => getFrameworkData(framework));
-  return frameworkData;
+  Promise.all([
+    getFrameworkData(frameworksParams[0]),
+    getFrameworkData(frameworksParams[1]),
+    getFrameworkData(frameworksParams[2]),
+    getFrameworkData(frameworksParams[3]),
+    getFrameworkData(frameworksParams[4]),
+  ]).then((responses) => {
+    console.log(responses);
+    return responses;
+  });
 };
 
 const main = () => {
-  setTimeout(updateFrameworkElements(frameworkData), 1000);
+  updateFrameworkElements(boo());
 };
-boo();
+
 main();
-console.log(frameworkData);
