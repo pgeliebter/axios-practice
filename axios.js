@@ -1,19 +1,44 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 
-// old code
-// const getRequest = (url, paramsObject) => {
-//   axios
-//     .get(url, paramsObject)
-//     .then((response) => {
-//       console.log(`GET from ${url}`, response.data);
-//     })
-//     .catch((error) => console.error(error));
-// };
+const BASE_URL = "https://jsonplaceholder.typicode.com";
 
-// let gitHubRequest = {
-//   url: "https://api.github.com/repos/vuejs/vue",
-//   paramsObject: {},
-// };
+const getTodoItems = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/todos?_limit=5`);
 
-// getRequest(gitHubRequest.url);
+    const todoItems = response.data;
+
+    console.log(`GET: Here's the list of todos`, todoItems);
+
+    return todoItems;
+  } catch (errors) {
+    console.error(errors);
+  }
+};
+
+const createTodoElement = (item) => {
+  const todoElement = document.createElement("li");
+
+  todoElement.appendChild(document.createTextNode(item.title));
+
+  return todoElement;
+};
+
+const updateTodoList = (todoItems) => {
+  const todoList = document.querySelector("ul");
+
+  if (Array.isArray(todoItems) && todoItems.length > 0) {
+    todoItems.map((todoItem) => {
+      todoList.appendChild(createTodoElement(todoItem));
+    });
+  } else if (todoItems) {
+    todoList.appendChild(createTodoElement(todoItems));
+  }
+};
+
+const main = async () => {
+  updateTodoList(await getTodoItems());
+};
+
+main();
