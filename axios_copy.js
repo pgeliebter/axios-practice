@@ -16,12 +16,7 @@ const getFrameworkData = async (framework) => {
   try {
     const response = await axios.get(`${BASE_URL}/repos/${framework}`);
 
-    const frameworkItems = response.data;
-
-    console.log(`GET: Here's the list of todos`, frameworkItems);
-
     frameworkData.push(response.data);
-    console.log(`Framework data:`, frameworkData);
   } catch (errors) {
     console.error(errors);
   }
@@ -37,10 +32,9 @@ const createElement = (item) => {
 
 const updateFrameworkElements = (frameworkItems) => {
   const frameworkList = document.querySelector("ul");
-
   if (Array.isArray(frameworkItems) && frameworkItems.length > 0) {
-    frameworkItems.map((todoItem) => {
-      frameworkList.appendChild(createElement(todoItem));
+    frameworkItems.map((element) => {
+      frameworkList.appendChild(createElement(element));
     });
   } else if (frameworkItems) {
     frameworkList.appendChild(createElement(frameworkItems));
@@ -57,3 +51,4 @@ const main = () => {
 };
 boo();
 main();
+console.log(frameworkData);
