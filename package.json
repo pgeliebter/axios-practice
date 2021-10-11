@@ -4,14 +4,15 @@
   "main": "axios.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel axios.html",
-    "build": "parcel build axios.html"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.22.0",
-    "chartjs": "^0.3.24"
+    "highcharts": "^9.2.2",
+    "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
