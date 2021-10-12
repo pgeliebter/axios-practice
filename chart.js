@@ -13,7 +13,9 @@ function theChart(myData) {
       title: {
         text: "Frameworks",
       },
-      categories: myData.names,
+      categories: myData.names.map(
+        (name) => `${name[0].toUpperCase()}${name.slice(1)}`,
+      ),
     },
     yAxis: { type: "logarithmic", title: { text: "" } },
     series: [
@@ -30,6 +32,18 @@ function theChart(myData) {
         data: myData.forks,
       },
     ],
+    plotOptions: {
+      series: {
+        // cursor: "pointer",
+        events: {
+          click: function (event) {
+            let i = myData.names.indexOf(event.point.category.toLowerCase());
+            let url = myData.htmlLink[i];
+            window.open(url, "_blank").focus();
+          },
+        },
+      },
+    },
   });
 }
 export default theChart;
