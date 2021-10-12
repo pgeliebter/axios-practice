@@ -1,8 +1,8 @@
 import "regenerator-runtime/runtime";
 import Highcharts from "highcharts";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const chart = Highcharts.chart("container", {
+function theChart(myData) {
+  Highcharts.chart("container", {
     chart: {
       type: "column",
     },
@@ -13,22 +13,23 @@ document.addEventListener("DOMContentLoaded", function () {
       title: {
         text: "Frameworks",
       },
-      categories: ["Vue", "Angular", "Ember", "Svelte", "React"],
+      categories: myData.names,
     },
     yAxis: { type: "logarithmic", title: { text: "" } },
     series: [
       {
         name: "Stars",
-        data: [189097, 59600, 22023, 50923, 175928],
+        data: myData.stars,
       },
       {
-        name: "Watchers",
-        data: [30367, 28443, 4253, 2441, 35530],
+        name: "Subcribers",
+        data: myData.subcribers,
       },
       {
         name: "Forks",
-        data: [6222, 3909, 918, 876, 6675],
+        data: myData.forks,
       },
     ],
   });
-});
+}
+export default theChart;

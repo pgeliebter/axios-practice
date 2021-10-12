@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
+import theChart from "./chart";
 
 const BASE_URL = "https://api.github.com";
 let frameworksParams = [
@@ -48,21 +49,22 @@ const boo = () => {
     getFrameworkData(frameworksParams[3]),
     getFrameworkData(frameworksParams[4]),
   ]).then((responses) => {
-    const $boo = responses.map((e, i) => ({
+    const boo = responses.map((e, i) => ({
       stars: e.stargazers_count,
       subcribers: e.subscribers_count,
       forks: e.forks_count,
       name: e.name,
       id: i,
     }));
-    const $fool = {
+    const fool = {
       stars: boo.map((e) => e.stars),
       forks: boo.map((e) => e.forks),
       subcribers: boo.map((e) => e.subcribers),
       names: boo.map((e) => e.name),
     };
-    console.log($boo, $fool);
+    console.log(boo, fool);
     updateFrameworkElements(responses);
+    document.addEventListener("DOMContentLoaded", theChart(fool));
   });
 };
 
