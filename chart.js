@@ -34,7 +34,7 @@ function theChart(myData) {
     ],
     plotOptions: {
       series: {
-        // cursor: "pointer",
+        cursor: "pointer",
         events: {
           click: function (event) {
             let i = myData.names.indexOf(event.point.category.toLowerCase());
